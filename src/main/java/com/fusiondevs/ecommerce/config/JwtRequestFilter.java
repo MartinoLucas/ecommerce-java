@@ -33,6 +33,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException, java.io.IOException {
 
+        String servletPath = request.getServletPath();
+        if ("/authenticate".equals(servletPath) || "/logout".equals(servletPath)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String jwt = null;
         String username = null;
 
