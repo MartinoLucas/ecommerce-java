@@ -3,6 +3,7 @@ package com.fusiondevs.ecommerce.service;
 import com.fusiondevs.ecommerce.client.ErpAuthClient;
 import com.fusiondevs.ecommerce.dto.AuthenticationRequest;
 import com.fusiondevs.ecommerce.dto.AuthenticationResult;
+import com.fusiondevs.ecommerce.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -18,6 +19,8 @@ import java.util.List;
 public class AuthenticationService {
     @Autowired
     private ErpAuthClient erpAuthClient;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public AuthenticationResult authenticate(AuthenticationRequest request) {
         // Llama al endpoint /authenticate del ERP a través del cliente Feign
@@ -31,5 +34,9 @@ public class AuthenticationService {
         String cookie = (cookies != null && !cookies.isEmpty()) ? cookies.get(0) : null;
 
         return new AuthenticationResult(token, cookie);
+    }
+
+    public String getUserName(String token) {
+        return jwtUtil.extractUsername(token);
     }
 }

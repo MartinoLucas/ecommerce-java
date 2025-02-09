@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,7 +33,7 @@ public class SecurityConfig {
                 // Configuración de autorización de endpoints
                 .authorizeHttpRequests(auth -> auth
                         // Se permite el acceso sin autenticación a /authenticate y otros endpoints públicos si lo deseas
-                        .requestMatchers("/authenticate", "/public/**").permitAll()
+                        .requestMatchers("/authenticate", "/public/**", "/logout").permitAll()
                         // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated()
                 )
@@ -40,15 +41,16 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )
+                .logout(AbstractHttpConfigurer::disable)
                 // Configuración de logout: se define la URL, se envía un mensaje y se elimina la cookie "jwtToken"
-                .logout(logout -> logout
+                /*.logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setStatus(HttpServletResponse.SC_OK);
                             response.getWriter().write("Successfully logged out");
                         })
                         .deleteCookies("jwtToken")
-                )
+                )*/
                 // Agregamos el filtro JWT antes del filtro de autenticación de usuario
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
