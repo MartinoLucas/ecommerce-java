@@ -1,5 +1,6 @@
 package com.fusiondevs.ecommerce.service;
 
+import com.fusiondevs.ecommerce.client.ErpAuthClient;
 import com.fusiondevs.ecommerce.dto.AuthenticationRequest;
 import com.fusiondevs.ecommerce.dto.AuthenticationResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,11 @@ import java.util.List;
 @Service
 public class AuthenticationService {
     @Autowired
-    private RestTemplate restTemplate;
-
-    // La URL base del ERP se configura según el entorno (development: http://localhost:8081, production: https://admin.cuartageneracionvinos.com:3000)
-    @Value("${erp.base.url}")
-    private String erpBaseUrl;
+    private ErpAuthClient erpAuthClient;
 
     public AuthenticationResult authenticate(AuthenticationRequest request) {
-        // Construye la URL del endpoint de autenticación del ERP
-        String url = erpBaseUrl + "/authenticate";
-
-        // Configura los headers de la petición
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<AuthenticationRequest> entity = new HttpEntity<>(request, headers);
-
-        // Realiza la llamada al ERP (por ejemplo, usando POST)
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, entity, String.class);
+        // Llama al endpoint /authenticate del ERP a través del cliente Feign
+        ResponseEntity<String> responseEntity = erpAuthClient.authenticate(request);
 
         // Obtiene el token (se espera que sea un String) del body de la respuesta
         String token = responseEntity.getBody();
