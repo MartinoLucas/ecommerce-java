@@ -1,8 +1,8 @@
-package com.fusiondevs.ecommerce.controller;
+package com.fusiondevs.ecommerce.controller.session;
 
-import com.fusiondevs.ecommerce.dto.AuthenticationRequest;
-import com.fusiondevs.ecommerce.dto.AuthenticationResult;
-import com.fusiondevs.ecommerce.service.AuthenticationService;
+import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
+import com.fusiondevs.ecommerce.dto.session.AuthenticationResult;
+import com.fusiondevs.ecommerce.service.session.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

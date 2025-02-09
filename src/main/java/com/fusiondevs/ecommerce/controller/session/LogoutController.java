@@ -1,8 +1,7 @@
-package com.fusiondevs.ecommerce.controller;
+package com.fusiondevs.ecommerce.controller.session;
 
 
-import com.fusiondevs.ecommerce.dto.ApiResponse;
-import com.fusiondevs.ecommerce.service.LogoutService;
+import com.fusiondevs.ecommerce.service.session.LogoutService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

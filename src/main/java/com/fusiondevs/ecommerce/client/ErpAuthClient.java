@@ -1,6 +1,6 @@
 package com.fusiondevs.ecommerce.client;
 
-import com.fusiondevs.ecommerce.dto.AuthenticationRequest;
+import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

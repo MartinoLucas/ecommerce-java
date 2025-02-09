@@ -1,17 +1,13 @@
-package com.fusiondevs.ecommerce.service;
+package com.fusiondevs.ecommerce.service.session;
 
 import com.fusiondevs.ecommerce.client.ErpAuthClient;
-import com.fusiondevs.ecommerce.dto.AuthenticationRequest;
-import com.fusiondevs.ecommerce.dto.AuthenticationResult;
+import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
+import com.fusiondevs.ecommerce.dto.session.AuthenticationResult;
 import com.fusiondevs.ecommerce.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 

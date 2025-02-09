@@ -1,6 +1,6 @@
 package com.fusiondevs.ecommerce.config;
 
-import com.fusiondevs.ecommerce.service.AuthenticationService;
+import com.fusiondevs.ecommerce.service.session.AuthenticationService;
 import com.fusiondevs.ecommerce.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.io.IOException;

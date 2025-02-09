@@ -1,4 +1,4 @@
-package com.fusiondevs.ecommerce.service;
+package com.fusiondevs.ecommerce.service.session;
 
 import com.fusiondevs.ecommerce.client.ErpAuthClient;
 import com.fusiondevs.ecommerce.dto.ApiResponse;
