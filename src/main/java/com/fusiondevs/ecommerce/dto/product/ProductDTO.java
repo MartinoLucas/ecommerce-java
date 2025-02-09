@@ -1,4 +1,4 @@
-package com.fusiondevs.ecommerce.dto;
+package com.fusiondevs.ecommerce.dto.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

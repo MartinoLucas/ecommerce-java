@@ -1,6 +1,6 @@
 package com.fusiondevs.ecommerce.controller;
 
-import com.fusiondevs.ecommerce.dto.ProductDTO;
+import com.fusiondevs.ecommerce.dto.product.ProductDTO;
 import com.fusiondevs.ecommerce.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
