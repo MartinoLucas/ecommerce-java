@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            response.getWriter().write("Unauthorized access: you must be logged in");
+                            response.getWriter().write("Unauthorized access: you must be logged in ecommerce");
                         })
                 )
                 // Configuración de logout: se define la URL, se envía un mensaje y se elimina la cookie "jwtToken"
