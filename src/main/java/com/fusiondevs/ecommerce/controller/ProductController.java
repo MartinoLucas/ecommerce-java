@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/public/products")
+@RequestMapping("/public/products/")
 public class ProductController {
 
     private final ProductService productService;
@@ -20,7 +20,7 @@ public class ProductController {
     }
 
     // Endpoint para obtener todos los productos
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<ProductDTO> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
