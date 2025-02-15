@@ -3,6 +3,7 @@ package com.fusiondevs.ecommerce.service.session;
 import com.fusiondevs.ecommerce.client.ErpAuthClient;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationResult;
+import com.fusiondevs.ecommerce.session.UserSessionToken;
 import com.fusiondevs.ecommerce.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,8 @@ public class AuthenticationService {
     private ErpAuthClient erpAuthClient;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private UserSessionToken userSessionToken;
 
     public AuthenticationResult authenticate(AuthenticationRequest request) {
         // Llama al endpoint /authenticate del ERP a través del cliente Feign
@@ -24,6 +27,8 @@ public class AuthenticationService {
 
         // Obtiene el token (se espera que sea un String) del body de la respuesta
         String token = responseEntity.getBody();
+
+        userSessionToken.setToken(token);
 
         // Extrae la cookie del header "Set-Cookie" (si existe)
         List<String> cookies = responseEntity.getHeaders().get(HttpHeaders.SET_COOKIE);

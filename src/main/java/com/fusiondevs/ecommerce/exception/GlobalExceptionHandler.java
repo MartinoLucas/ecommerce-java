@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @ExceptionHandler(CreateException.class)
+    public ResponseEntity<ApiResponse<Object>> handleCreateException(CreateException ex) {
+        ApiResponse<Object> response = new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null);
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(FeignException.class)
     public ResponseEntity<ApiResponse<Object>> handleFeignException(FeignException ex) {
         int status = ex.status();
