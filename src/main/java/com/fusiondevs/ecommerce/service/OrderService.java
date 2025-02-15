@@ -1,6 +1,7 @@
 package com.fusiondevs.ecommerce.service;
 
 import com.fusiondevs.ecommerce.client.ErpOrderClient;
+import com.fusiondevs.ecommerce.dto.order.OrderItemRequest;
 import com.fusiondevs.ecommerce.dto.order.OrderRequest;
 import com.fusiondevs.ecommerce.dto.order.OrderResponse;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class OrderService {
     public OrderResponse createOrder() {
         OrderRequest orderRequest = new OrderRequest(LocalDateTime.now(), "PENDING");
         return erpOrderClient.createOrder(orderRequest);
+    }
+
+    public OrderResponse addItemToOrder(String orderId, OrderItemRequest orderItemRequest) {
+        return erpOrderClient.addItemToOrder(orderId, orderItemRequest);
     }
 }

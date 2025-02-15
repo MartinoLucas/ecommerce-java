@@ -1,12 +1,12 @@
 package com.fusiondevs.ecommerce.controller;
 
+import com.fusiondevs.ecommerce.dto.order.OrderItemRequest;
 import com.fusiondevs.ecommerce.dto.order.OrderResponse;
 import com.fusiondevs.ecommerce.exception.CreateException;
 import com.fusiondevs.ecommerce.service.OrderService;
+import feign.FeignException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -19,11 +19,23 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<OrderResponse> createOrder() throws CreateException {
-        return ResponseEntity.ok(orderService.createOrder());
-        /*try {
+        try {
             return ResponseEntity.ok(orderService.createOrder());
-        } catch (Exception e) {
+        } catch (CreateException e) {
             throw new CreateException("Error creating order");
-        }*/
+        } catch (FeignException e) {
+            throw new CreateException(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.POST)
+    public ResponseEntity<OrderResponse> addItemToOrder(@PathVariable String orderId, @RequestBody OrderItemRequest orderItemRequest) throws CreateException {
+        try {
+            return ResponseEntity.ok(orderService.addItemToOrder(orderId, orderItemRequest));
+        } catch (CreateException e) {
+            throw new CreateException("Error adding item to order");
+        } catch (FeignException e) {
+            throw new CreateException(e.getMessage());
+        }
     }
 }
