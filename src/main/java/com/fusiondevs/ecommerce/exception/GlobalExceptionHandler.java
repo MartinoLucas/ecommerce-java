@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ApiResponse<Object>> handleNotFoundException(NotFoundException ex) {
+        ApiResponse<Object> response = new ApiResponse<>(HttpStatus.NOT_FOUND.value(), ex.getMessage(), null);
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(CreateException.class)
     public ResponseEntity<ApiResponse<Object>> handleCreateException(CreateException ex) {
         ApiResponse<Object> response = new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null);

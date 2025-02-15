@@ -3,10 +3,13 @@ package com.fusiondevs.ecommerce.controller;
 import com.fusiondevs.ecommerce.dto.order.OrderItemRequest;
 import com.fusiondevs.ecommerce.dto.order.OrderResponse;
 import com.fusiondevs.ecommerce.exception.CreateException;
+import com.fusiondevs.ecommerce.exception.NotFoundException;
 import com.fusiondevs.ecommerce.service.OrderService;
 import feign.FeignException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -28,7 +31,27 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/{orderId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
+    public ResponseEntity<OrderResponse> getOrder(@PathVariable String orderId) throws NotFoundException {
+        try {
+            return ResponseEntity.ok(orderService.getOrder(orderId));
+        } catch (NotFoundException e) {
+            throw new NotFoundException("Error getting order");
+        } catch (FeignException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public List<OrderResponse> getAllOrders(){
+        try {
+            return orderService.getAllOrders();
+        } catch (FeignException e) {
+            throw e;
+        }
+    }
+
+    @RequestMapping(value = "/{orderId}/items", method = RequestMethod.POST)
     public ResponseEntity<OrderResponse> addItemToOrder(@PathVariable String orderId, @RequestBody OrderItemRequest orderItemRequest) throws CreateException {
         try {
             return ResponseEntity.ok(orderService.addItemToOrder(orderId, orderItemRequest));

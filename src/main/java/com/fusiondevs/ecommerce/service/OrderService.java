@@ -7,6 +7,7 @@ import com.fusiondevs.ecommerce.dto.order.OrderResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -21,7 +22,15 @@ public class OrderService {
         return erpOrderClient.createOrder(orderRequest);
     }
 
+    public OrderResponse getOrder(String orderId) {
+        return erpOrderClient.getOrder(orderId);
+    }
+
     public OrderResponse addItemToOrder(String orderId, OrderItemRequest orderItemRequest) {
         return erpOrderClient.addItemToOrder(orderId, orderItemRequest);
+    }
+
+    public List<OrderResponse> getAllOrders() {
+        return erpOrderClient.getAllOrders();
     }
 }
