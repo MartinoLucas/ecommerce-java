@@ -1,11 +1,11 @@
 package com.fusiondevs.ecommerce.client;
 
-import com.fusiondevs.ecommerce.dto.Page;
 import com.fusiondevs.ecommerce.dto.product.ProductDTO;
 import com.fusiondevs.ecommerce.dto.product.ProductFilterRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -19,18 +19,15 @@ public interface ErpProductClient {
     ProductDTO getProduct(@PathVariable Long id);
 
     @GetMapping(value="/category/{categoryId}")
-    List<ProductDTO> getProductsByCategory(Long categoryId);
+    List<ProductDTO> getProductsByCategory(@PathVariable Long categoryId);
 
     @GetMapping(value="/subcategory/{subCategoryId}")
-    List<ProductDTO> getProductsBySubCategory(Long subCategoryId);
-
-    @GetMapping(value="/getByPage")
-    List<ProductDTO> getProductsByPage(Page page);
+    List<ProductDTO> getProductsBySubCategory(@PathVariable Long subCategoryId);
 
     @GetMapping(value="/name")
-    List<ProductDTO> getProductsByName(String name);
+    List<ProductDTO> getProductsByName(@RequestBody String name);
 
     @GetMapping(value="/filter")
-    List<ProductDTO> filterProducts(ProductFilterRequest filterRequest);
+    List<ProductDTO> filterProducts(@RequestBody ProductFilterRequest filterRequest);
 }
 

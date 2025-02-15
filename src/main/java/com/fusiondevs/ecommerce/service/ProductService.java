@@ -1,7 +1,6 @@
 package com.fusiondevs.ecommerce.service;
 
 import com.fusiondevs.ecommerce.client.ErpProductClient;
-import com.fusiondevs.ecommerce.dto.Page;
 import com.fusiondevs.ecommerce.dto.product.ProductDTO;
 import com.fusiondevs.ecommerce.dto.product.ProductFilterRequest;
 import org.springframework.stereotype.Service;
@@ -30,10 +29,6 @@ public class ProductService {
 
     public List<ProductDTO> getProductsBySubCategory(Long subCategoryId) {
         return erpProductClient.getProductsBySubCategory(subCategoryId);
-    }
-
-    public List<ProductDTO> getProductsByPage(Page page) {
-        return erpProductClient.getProductsByPage(page);
     }
 
     public List<ProductDTO> getProductsByName(String name) {
