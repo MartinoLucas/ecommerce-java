@@ -1,6 +1,6 @@
 package com.fusiondevs.ecommerce.config;
 
-import com.fusiondevs.ecommerce.service.session.AuthenticationService;
+import com.fusiondevs.ecommerce.service.AuthenticationService;
 import com.fusiondevs.ecommerce.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.io.IOException;
@@ -33,8 +33,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException, java.io.IOException {
 
-        String servletPath = request.getServletPath();
-        if ("/authenticate".equals(servletPath) || "/logout".equals(servletPath)) {
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/public/")) {
+            filterChain.doFilter(request, response);
+            return;
+        } else if (path.startsWith("/auth/")) {
             filterChain.doFilter(request, response);
             return;
         }

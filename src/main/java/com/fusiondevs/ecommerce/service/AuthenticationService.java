@@ -1,12 +1,16 @@
-package com.fusiondevs.ecommerce.service.session;
+package com.fusiondevs.ecommerce.service;
 
 import com.fusiondevs.ecommerce.client.ErpAuthClient;
+import com.fusiondevs.ecommerce.dto.ApiResponse;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationResult;
 import com.fusiondevs.ecommerce.session.UserSessionToken;
 import com.fusiondevs.ecommerce.util.JwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +39,23 @@ public class AuthenticationService {
         String cookie = (cookies != null && !cookies.isEmpty()) ? cookies.get(0) : null;
 
         return new AuthenticationResult(token, cookie);
+    }
+
+    public ApiResponse<?> logout(HttpServletResponse response) {
+        System.out.println("Ecommerce: LogoutService.logout: calling erpAuthClient.logout");
+        erpAuthClient.logout();
+        System.out.println("Ecommerce: LogoutService.logout: called erpAuthClient.logout");
+
+        System.out.println("Ecommerce: LogoutService.logout");
+        Cookie jwtCookie = new Cookie("jwtToken", null);
+        jwtCookie.setMaxAge(0);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setPath("/");
+
+        response.addCookie(jwtCookie);
+
+        ApiResponse apiResponse = new ApiResponse(HttpStatus.OK.value(), "Ecommerce: You have been logged out successfully", null);
+        return apiResponse;
     }
 
     public String getUserName(String token) {
