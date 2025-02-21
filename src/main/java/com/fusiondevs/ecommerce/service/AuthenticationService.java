@@ -4,6 +4,7 @@ import com.fusiondevs.ecommerce.client.ErpAuthClient;
 import com.fusiondevs.ecommerce.dto.ApiResponse;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationResult;
+import com.fusiondevs.ecommerce.dto.session.RegisterRequest;
 import com.fusiondevs.ecommerce.session.UserSessionToken;
 import com.fusiondevs.ecommerce.util.JwtUtil;
 import jakarta.servlet.http.Cookie;
@@ -60,5 +61,13 @@ public class AuthenticationService {
 
     public String getUserName(String token) {
         return jwtUtil.extractUsername(token);
+    }
+
+    public ResponseEntity<?> register(RegisterRequest request) {
+        return erpAuthClient.register(request);
+    }
+
+    public String getUserName() {
+        return erpAuthClient.getUserName();
     }
 }

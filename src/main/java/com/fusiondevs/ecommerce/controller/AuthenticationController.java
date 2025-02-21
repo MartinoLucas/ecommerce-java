@@ -2,6 +2,7 @@ package com.fusiondevs.ecommerce.controller;
 
 import com.fusiondevs.ecommerce.dto.session.AuthenticationRequest;
 import com.fusiondevs.ecommerce.dto.session.AuthenticationResult;
+import com.fusiondevs.ecommerce.dto.session.RegisterRequest;
 import com.fusiondevs.ecommerce.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,15 @@ public class AuthenticationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /*@RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-    public ResponseEntity<?> register(@RequestBody AuthenticationRequest request) {
+    @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        authenticationService.register(request);
         return new ResponseEntity<>(HttpStatus.OK);
-    }*/
+    }
 
-    /*@RequestMapping(value = {"/me"}, method = RequestMethod.GET)
-    public ResponseEntity<?> me() {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }*/
+    @RequestMapping(value = {"/me"}, method = RequestMethod.GET)
+    public ResponseEntity<String> me() {
+        String username = authenticationService.getUserName();
+        return ResponseEntity.ok(username);
+    }
 }

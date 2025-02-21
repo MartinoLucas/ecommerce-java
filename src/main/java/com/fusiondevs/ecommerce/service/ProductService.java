@@ -64,20 +64,4 @@ public class ProductService {
         return erpProductClient.getProduct(id);
     }
 
-    /*public List<ProductDTO> getProductsByCategory(Long categoryId) {
-        return erpProductClient.getProductsByCategory(categoryId);
-    }
-
-    public List<ProductDTO> getProductsBySubCategory(Long subCategoryId) {
-        return erpProductClient.getProductsBySubCategory(subCategoryId);
-    }
-
-    public List<ProductDTO> getProductsByName(String name) {
-        return erpProductClient.getProductsByName(name);
-    }
-
-    public List<ProductDTO> filterProducts(ProductFilterRequest filterRequest) {
-        return erpProductClient.filterProducts(filterRequest);
-    }*/
-
 }
