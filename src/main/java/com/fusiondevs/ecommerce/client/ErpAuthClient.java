@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name="erpAuthClient", url="${erp.base.url}")
+@FeignClient(name="erpAuthClient", url="${erp.base.url}/customer")
 public interface ErpAuthClient {
     //login
-    @PostMapping(value = "/authenticate", consumes = "application/json")
+    @PostMapping(value = "/login", consumes = "application/json")
     ResponseEntity<String> authenticate(@RequestBody AuthenticationRequest request);
 
     //get username /me
-    @GetMapping(value = "/auth/user")
+    @GetMapping(value = "/me")
     String getUserName();
 
     //logout
@@ -23,6 +23,6 @@ public interface ErpAuthClient {
     ResponseEntity<?> logout();
 
     //register
-    @PostMapping(value = "/register/user")
+    @PostMapping(value = "/register")
     ResponseEntity<?> register(@RequestBody RegisterRequest request);
 }

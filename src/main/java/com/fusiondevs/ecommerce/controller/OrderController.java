@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/cart")
 public class OrderController {
     private final OrderService orderService;
 
@@ -42,14 +42,14 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<OrderResponse> getAllOrders(){
-        try {
-            return orderService.getAllOrders();
-        } catch (FeignException e) {
-            throw e;
-        }
-    }
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public List<OrderResponse> getAllOrders(){
+//        try {
+//            return orderService.getAllOrders();
+//        } catch (FeignException e) {
+//            throw e;
+//        }
+//    }
 
     @RequestMapping(value = "/{orderId}/items", method = RequestMethod.POST)
     public ResponseEntity<OrderResponse> addItemToOrder(@PathVariable String orderId, @RequestBody OrderItemRequest orderItemRequest) throws CreateException {
