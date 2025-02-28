@@ -33,7 +33,7 @@ public class SecurityConfig {
                 // Configuración de autorización de endpoints
                 .authorizeHttpRequests(auth -> auth
                         // Se permite el acceso sin autenticación a /authenticate y otros endpoints públicos si lo deseas
-                        .requestMatchers("/auth/**", "/public/**").permitAll()
+                        .requestMatchers("/auth/**", "/public/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated()
                 )

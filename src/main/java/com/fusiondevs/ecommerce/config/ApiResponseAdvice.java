@@ -21,7 +21,12 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        // Se aplica a todas las respuestas
+        String packageName = returnType.getContainingClass().getPackageName();
+        if(packageName.startsWith("org.springdoc") || packageName.startsWith("io.swagger")) {
+            return false;
+        }
+        // O también puedes chequear la URL si accedes al request a través de RequestContextHolder,
+        // pero filtrar por paquete es lo más sencillo.
         return true;
     }
 

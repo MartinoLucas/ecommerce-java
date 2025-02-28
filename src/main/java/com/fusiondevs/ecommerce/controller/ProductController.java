@@ -3,6 +3,9 @@ package com.fusiondevs.ecommerce.controller;
 import com.fusiondevs.ecommerce.dto.product.ProductDTO;
 import com.fusiondevs.ecommerce.service.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/public/products")
+@Tag(name = "Product", description = "Product API")
 public class ProductController {
 
     private final ProductService productService;
@@ -19,7 +23,10 @@ public class ProductController {
     }
 
     // Endpoint para obtener todos los productos
-    @RequestMapping(method = RequestMethod.GET)
+    //@RequestMapping(method = RequestMethod.GET)
+    @GetMapping
+    @Operation(summary = "Get all products")
+    @ApiResponse(responseCode = "200", description = "Products retrieved successfully")
     public ResponseEntity<Map<String, Object>> getAllProducts(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) Long category,
@@ -34,7 +41,10 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(value={"/{id}"}, method = RequestMethod.GET)
+    //@RequestMapping(value={"/{id}"}, method = RequestMethod.GET)
+    @GetMapping("/{id}")
+    @Operation(summary = "Get a product by ID")
+    @ApiResponse(responseCode = "200", description = "Product retrieved successfully")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
         ProductDTO product = productService.getProduct(id);
         return ResponseEntity.ok(product);
